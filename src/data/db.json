@@ -1,0 +1,594 @@
+
+{
+
+    "exercises": [
+        {
+            "id": "ex_001",
+            "name": "Присідання з власною вагою",
+            "slug": "bodyweight-squat",
+            "category": "legs",
+            "muscleGroups": ["quadriceps", "glutes", "hamstrings"],
+            "equipmentIds": [],
+            "difficulty": "beginner",
+            "location": ["home", "gym"],
+            "type": "strength",
+            "instructions": [
+                "Постав ноги на ширині плечей.",
+                "Зігни коліна та опусти таз вниз.",
+                "Тримай спину нейтральною.",
+                "Повернись у вихідне положення."
+                ]
+        },
+        {
+            "id": "ex_002",
+            "name": "Присідання з гантелями",
+            "slug": "dumbbell-squat",
+            "category": "legs",
+            "muscleGroups": ["quadriceps", "glutes", "hamstrings"],
+            "equipmentIds": ["eq_001"],
+            "difficulty": "beginner",
+            "location": ["home", "gym"],
+            "type": "strength"
+        },
+        {
+            "id": "ex_003",
+            "name": "Гоблет-присідання",
+            "slug": "goblet-squat",
+            "category": "legs",
+            "muscleGroups": ["quadriceps", "glutes", "core"],
+            "equipmentIds": ["eq_001", "eq_002"],
+            "difficulty": "beginner",
+            "location": ["home", "gym"],
+            "type": "strength"
+        },
+        {
+            "id": "ex_004",
+            "name": "Болгарські спліт-присідання",
+            "slug": "bulgarian-split-squat",
+            "category": "legs",
+            "muscleGroups": ["quadriceps", "glutes", "hamstrings"],
+            "equipmentIds": ["eq_001", "eq_005"],
+            "difficulty": "intermediate",
+            "location": ["home", "gym"],
+            "type": "strength"
+        },
+        {
+            "id": "ex_005",
+            "name": "Випади вперед",
+            "slug": "forward-lunges",
+            "category": "legs",
+            "muscleGroups": ["quadriceps", "glutes", "hamstrings"],
+            "equipmentIds": [],
+            "difficulty": "beginner",
+            "location": ["home", "gym"],
+            "type": "strength"
+        },
+        {
+            "id": "ex_006",
+            "name": "Випади з гантелями",
+            "slug": "dumbbell-lunges",
+            "category": "legs",
+            "muscleGroups": ["quadriceps", "glutes", "hamstrings"],
+            "equipmentIds": ["eq_001"],
+            "difficulty": "intermediate",
+            "location": ["home", "gym"],
+            "type": "strength"
+        },
+        {
+            "id": "ex_007",
+            "name": "Румунська тяга з гантелями",
+            "slug": "dumbbell-romanian-deadlift",
+            "category": "legs",
+            "muscleGroups": ["hamstrings", "glutes", "lower_back"],
+            "equipmentIds": ["eq_001"],
+            "difficulty": "beginner",
+            "location": ["home", "gym"],
+            "type": "strength"
+        },
+        {
+            "id": "ex_008",
+            "name": "Румунська тяга з EZ-грифом",
+            "slug": "ez-bar-romanian-deadlift",
+            "category": "legs",
+            "muscleGroups": ["hamstrings", "glutes", "lower_back"],
+            "equipmentIds": ["eq_002"],
+            "difficulty": "intermediate",
+            "location": ["home", "gym"],
+            "type": "strength"
+        },
+        {
+            "id": "ex_009",
+            "name": "Ягодичний міст",
+            "slug": "glute-bridge",
+            "category": "legs",
+            "muscleGroups": ["glutes", "hamstrings"],
+            "equipmentIds": [],
+            "difficulty": "beginner",
+            "location": ["home", "gym"],
+            "type": "strength"
+        },
+        {
+            "id": "ex_010",
+            "name": "Ягодичний міст з гантеллю",
+            "slug": "weighted-glute-bridge",
+            "category": "legs",
+            "muscleGroups": ["glutes", "hamstrings"],
+            "equipmentIds": ["eq_001"],
+            "difficulty": "beginner",
+            "location": ["home", "gym"],
+            "type": "strength"
+        },
+        {
+            "id": "ex_011",
+            "name": "Підйоми на носки стоячи",
+            "slug": "standing-calf-raise",
+            "category": "legs",
+            "muscleGroups": ["calves"],
+            "equipmentIds": [],
+            "difficulty": "beginner",
+            "location": ["home", "gym"],
+            "type": "strength"
+        },
+        {
+            "id": "ex_012",
+            "name": "Підйоми на носки з гантелями",
+            "slug": "dumbbell-calf-raise",
+            "category": "legs",
+            "muscleGroups": ["calves"],
+            "equipmentIds": ["eq_001"],
+            "difficulty": "beginner",
+            "location": ["home", "gym"],
+            "type": "strength"
+        },
+        {
+            "id": "ex_013",
+            "name": "Віджимання від підлоги",
+            "slug": "push-ups",
+            "category": "chest",
+            "muscleGroups": ["chest", "triceps", "front_delts"],
+            "equipmentIds": [],
+            "difficulty": "beginner",
+            "location": ["home", "gym"],
+            "type": "strength"
+        },
+        {
+            "id": "ex_014",
+            "name": "Віджимання з ногами на лавці",
+            "slug": "decline-push-ups",
+            "category": "chest",
+            "muscleGroups": ["chest", "front_delts", "triceps"],
+            "equipmentIds": ["eq_005"],
+            "difficulty": "intermediate",
+            "location": ["home", "gym"],
+            "type": "strength"
+        },
+        {
+            "id": "ex_015",
+            "name": "Жим гантелей лежачи",
+            "slug": "dumbbell-bench-press",
+            "category": "chest",
+            "muscleGroups": ["chest", "triceps", "front_delts"],
+            "equipmentIds": ["eq_001", "eq_005"],
+            "difficulty": "beginner",
+            "location": ["home", "gym"],
+            "type": "strength"
+        },
+        {
+            "id": "ex_016",
+            "name": "Жим гантелей на похилій лавці",
+            "slug": "incline-dumbbell-press",
+            "category": "chest",
+            "muscleGroups": ["upper_chest", "front_delts", "triceps"],
+            "equipmentIds": ["eq_001", "eq_005"],
+            "difficulty": "intermediate",
+            "location": ["home", "gym"],
+            "type": "strength"
+        },
+        {
+            "id": "ex_017",
+            "name": "Розведення гантелей лежачи",
+            "slug": "dumbbell-chest-fly",
+            "category": "chest",
+            "muscleGroups": ["chest"],
+            "equipmentIds": ["eq_001", "eq_005"],
+            "difficulty": "beginner",
+            "location": ["home", "gym"],
+            "type": "strength"
+        },
+        {
+            "id": "ex_018",
+            "name": "Віджимання на брусах",
+            "slug": "parallel-bar-dips",
+            "category": "chest",
+            "muscleGroups": ["chest", "triceps", "front_delts"],
+            "equipmentIds": ["eq_007"],
+            "difficulty": "intermediate",
+            "location": ["home", "gym"],
+            "type": "strength"
+        },
+        {
+            "id": "ex_019",
+            "name": "Підтягування широким хватом",
+            "slug": "wide-grip-pull-ups",
+            "category": "back",
+            "muscleGroups": ["lats", "biceps", "upper_back"],
+            "equipmentIds": ["eq_006"],
+            "difficulty": "intermediate",
+            "location": ["home", "gym"],
+            "type": "strength"
+        },
+        {
+            "id": "ex_020",
+            "name": "Підтягування зворотним хватом",
+            "slug": "chin-ups",
+            "category": "back",
+            "muscleGroups": ["lats", "biceps", "upper_back"],
+            "equipmentIds": ["eq_006"],
+            "difficulty": "beginner",
+            "location": ["home", "gym"],
+            "type": "strength"
+        },
+        {
+            "id": "ex_021",
+            "name": "Тяга гантелі однією рукою",
+            "slug": "one-arm-dumbbell-row",
+            "category": "back",
+            "muscleGroups": ["lats", "upper_back", "biceps"],
+            "equipmentIds": ["eq_001", "eq_005"],
+            "difficulty": "beginner",
+            "location": ["home", "gym"],
+            "type": "strength"
+        },
+        {
+            "id": "ex_022",
+            "name": "Тяга гантелей у нахилі",
+            "slug": "bent-over-dumbbell-row",
+            "category": "back",
+            "muscleGroups": ["lats", "upper_back", "rear_delts"],
+            "equipmentIds": ["eq_001"],
+            "difficulty": "beginner",
+            "location": ["home", "gym"],
+            "type": "strength"
+        },
+        {
+            "id": "ex_023",
+            "name": "Тяга EZ-грифу в нахилі",
+            "slug": "ez-bar-bent-over-row",
+            "category": "back",
+            "muscleGroups": ["lats", "upper_back", "biceps"],
+            "equipmentIds": ["eq_002"],
+            "difficulty": "intermediate",
+            "location": ["home", "gym"],
+            "type": "strength"
+        },
+        {
+            "id": "ex_024",
+            "name": "Шраги з гантелями",
+            "slug": "dumbbell-shrugs",
+            "category": "back",
+            "muscleGroups": ["traps"],
+            "equipmentIds": ["eq_001"],
+            "difficulty": "beginner",
+            "location": ["home", "gym"],
+            "type": "strength"
+        },
+        {
+            "id": "ex_025",
+            "name": "Пуловер з гантеллю",
+            "slug": "dumbbell-pullover",
+            "category": "back",
+            "muscleGroups": ["lats", "chest"],
+            "equipmentIds": ["eq_001", "eq_005"],
+            "difficulty": "intermediate",
+            "location": ["home", "gym"],
+            "type": "strength"
+        },
+        {
+            "id": "ex_026",
+            "name": "Жим гантелей над головою",
+            "slug": "dumbbell-shoulder-press",
+            "category": "shoulders",
+            "muscleGroups": ["front_delts", "side_delts", "triceps"],
+            "equipmentIds": ["eq_001"],
+            "difficulty": "beginner",
+            "location": ["home", "gym"],
+            "type": "strength"
+        },
+        {
+            "id": "ex_027",
+            "name": "Жим EZ-грифу над головою",
+            "slug": "ez-bar-overhead-press",
+            "category": "shoulders",
+            "muscleGroups": ["front_delts", "side_delts", "triceps"],
+            "equipmentIds": ["eq_002"],
+            "difficulty": "intermediate",
+            "location": ["home", "gym"],
+            "type": "strength"
+        },
+        {
+            "id": "ex_028",
+            "name": "Махи гантелями в сторони",
+            "slug": "dumbbell-lateral-raise",
+            "category": "shoulders",
+            "muscleGroups": ["side_delts"],
+            "equipmentIds": ["eq_001"],
+            "difficulty": "beginner",
+            "location": ["home", "gym"],
+            "type": "strength"
+        },
+        {
+            "id": "ex_029",
+            "name": "Махи гантелями перед собою",
+            "slug": "dumbbell-front-raise",
+            "category": "shoulders",
+            "muscleGroups": ["front_delts"],
+            "equipmentIds": ["eq_001"],
+            "difficulty": "beginner",
+            "location": ["home", "gym"],
+            "type": "strength"
+        },
+        {
+            "id": "ex_030",
+            "name": "Розведення гантелей у нахилі",
+            "slug": "bent-over-reverse-fly",
+            "category": "shoulders",
+            "muscleGroups": ["rear_delts", "upper_back"],
+            "equipmentIds": ["eq_001"],
+            "difficulty": "beginner",
+            "location": ["home", "gym"],
+            "type": "strength"
+        },
+        {
+            "id": "ex_031",
+            "name": "Згинання рук з гантелями",
+            "slug": "dumbbell-bicep-curl",
+            "category": "arms",
+            "muscleGroups": ["biceps", "forearms"],
+            "equipmentIds": ["eq_001"],
+            "difficulty": "beginner",
+            "location": ["home", "gym"],
+            "type": "strength"
+        },
+        {
+            "id": "ex_032",
+            "name": "Молоткові згинання з гантелями",
+            "slug": "hammer-curls",
+            "category": "arms",
+            "muscleGroups": ["biceps", "brachialis", "forearms"],
+            "equipmentIds": ["eq_001"],
+            "difficulty": "beginner",
+            "location": ["home", "gym"],
+            "type": "strength"
+        },
+        {
+            "id": "ex_033",
+            "name": "Згинання рук з EZ-грифом",
+            "slug": "ez-bar-curl",
+            "category": "arms",
+            "muscleGroups": ["biceps", "forearms"],
+            "equipmentIds": ["eq_002"],
+            "difficulty": "beginner",
+            "location": ["home", "gym"],
+            "type": "strength"
+        },
+        {
+            "id": "ex_034",
+            "name": "Французький жим з гантеллю",
+            "slug": "dumbbell-triceps-extension",
+            "category": "arms",
+            "muscleGroups": ["triceps"],
+            "equipmentIds": ["eq_001"],
+            "difficulty": "beginner",
+            "location": ["home", "gym"],
+            "type": "strength"
+        },
+        {
+            "id": "ex_035",
+            "name": "Французький жим з EZ-грифом",
+            "slug": "ez-bar-skull-crusher",
+            "category": "arms",
+            "muscleGroups": ["triceps"],
+            "equipmentIds": ["eq_002", "eq_005"],
+            "difficulty": "intermediate",
+            "location": ["home", "gym"],
+            "type": "strength"
+        },
+        {
+            "id": "ex_036",
+            "name": "Віджимання вузьким хватом",
+            "slug": "close-grip-push-ups",
+            "category": "arms",
+            "muscleGroups": ["triceps", "chest"],
+            "equipmentIds": [],
+            "difficulty": "beginner",
+            "location": ["home", "gym"],
+            "type": "strength"
+        },
+        {
+            "id": "ex_037",
+            "name": "Планка",
+            "slug": "plank",
+            "category": "core",
+            "muscleGroups": ["abs", "obliques", "lower_back"],
+            "equipmentIds": [],
+            "difficulty": "beginner",
+            "location": ["home", "gym"],
+            "type": "strength"
+        },
+        {
+            "id": "ex_038",
+            "name": "Скручування на прес",
+            "slug": "crunches",
+            "category": "core",
+            "muscleGroups": ["abs"],
+            "equipmentIds": [],
+            "difficulty": "beginner",
+            "location": ["home", "gym"],
+            "type": "strength"
+        },
+        {
+            "id": "ex_039",
+            "name": "Підйоми ніг лежачи",
+            "slug": "lying-leg-raises",
+            "category": "core",
+            "muscleGroups": ["abs", "hip_flexors"],
+            "equipmentIds": [],
+            "difficulty": "beginner",
+            "location": ["home", "gym"],
+            "type": "strength"
+        },
+        {
+            "id": "ex_040",
+            "name": "Російські скручування",
+            "slug": "russian-twists",
+            "category": "core",
+            "muscleGroups": ["obliques", "abs"],
+            "equipmentIds": ["eq_001"],
+            "difficulty": "beginner",
+            "location": ["home", "gym"],
+            "type": "strength"
+        }
+    ],
+    "equipment": [
+        {
+            "id": "eq_001",
+            "name": "Гантелі",
+            "slug": "dumbbells",
+            "category": "free_weights",
+            "type": "weight",
+            "location": ["home", "gym"],
+            "adjustable": true,
+            "description": "Пара гантелей для силових вправ."
+        },
+        {
+            "id": "eq_002",
+            "name": "EZ-гриф",
+            "slug": "ez-bar",
+            "category": "free_weights",
+            "type": "barbell",
+            "location": ["home", "gym"],
+            "adjustable": true,
+            "description": "Гнутий гриф для біцепса, трицепса та тяг."
+        },
+        {
+            "id": "eq_003",
+            "name": "Прямий гриф",
+            "slug": "straight-barbell",
+            "category": "free_weights",
+            "type": "barbell",
+            "location": ["home", "gym"],
+            "adjustable": true,
+            "description": "Прямий гриф для силових вправ."
+        },
+        {
+            "id": "eq_004",
+            "name": "Млинці",
+            "slug": "weight-plates",
+            "category": "free_weights",
+            "type": "weight",
+            "location": ["home", "gym"],
+            "adjustable": true,
+            "description": "Змінні обтяження для грифів та інших вправ."
+        },
+        {
+            "id": "eq_005",
+            "name": "Тренувальна лавка",
+            "slug": "weight-bench",
+            "category": "support",
+            "type": "bench",
+            "location": ["home", "gym"],
+            "adjustable": true,
+            "description": "Лавка для жимів, розведень та вправ з гантелями."
+        },
+        {
+            "id": "eq_006",
+            "name": "Турнік",
+            "slug": "pull-up-bar",
+            "category": "bodyweight",
+            "type": "bar",
+            "location": ["home", "gym"],
+            "adjustable": false,
+            "description": "Турнік для підтягувань та вправ з власною вагою."
+        },
+        {
+            "id": "eq_007",
+            "name": "Бруси",
+            "slug": "parallel-bars",
+            "category": "bodyweight",
+            "type": "bars",
+            "location": ["home", "gym"],
+            "adjustable": false,
+            "description": "Паралельні бруси для віджимань та вправ на трицепс."
+        },
+        {
+            "id": "eq_008",
+            "name": "Гиря",
+            "slug": "kettlebell",
+            "category": "free_weights",
+            "type": "weight",
+            "location": ["home", "gym"],
+            "adjustable": false,
+            "description": "Гиря для присідань, тяг та інших силових вправ."
+        },
+        {
+            "id": "eq_009",
+            "name": "Еспандер",
+            "slug": "resistance-band",
+            "category": "resistance",
+            "type": "band",
+            "location": ["home", "gym"],
+            "adjustable": true,
+            "description": "Гумовий еспандер для силових вправ і розминки."
+        },
+        {
+            "id": "eq_010",
+            "name": "Гімнастичний килимок",
+            "slug": "exercise-mat",
+            "category": "support",
+            "type": "mat",
+            "location": ["home", "gym"],
+            "adjustable": false,
+            "description": "Килимок для вправ на підлозі."
+        },
+        {
+            "id": "eq_011",
+            "name": "Обтяжувальний жилет",
+            "slug": "weighted-vest",
+            "category": "free_weights",
+            "type": "weight",
+            "location": ["home", "gym"],
+            "adjustable": true,
+            "description": "Жилет для збільшення навантаження у вправах з власною вагою."
+        },
+        {
+            "id": "eq_012",
+            "name": "Гімнастичні кільця",
+            "slug": "gymnastic-rings",
+            "category": "bodyweight",
+            "type": "rings",
+            "location": ["home", "gym"],
+            "adjustable": false,
+            "description": "Кільця для підтягувань, віджимань та вправ на стабілізацію."
+        },
+        {
+            "id": "eq_013",
+            "name": "Степ-платформа",
+            "slug": "step-platform",
+            "category": "support",
+            "type": "platform",
+            "location": ["home", "gym"],
+            "adjustable": false,
+            "description": "Платформа для зашагувань та допоміжних вправ."
+        },
+        {
+            "id": "eq_014",
+            "name": "Аб-ролер",
+            "slug": "ab-wheel",
+            "category": "bodyweight",
+            "type": "wheel",
+            "location": ["home", "gym"],
+            "adjustable": false,
+            "description": "Колесо для тренування м'язів преса та стабілізації корпусу."
+        }
+    ]
+}
