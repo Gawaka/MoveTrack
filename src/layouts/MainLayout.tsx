@@ -1,17 +1,11 @@
 import { Outlet } from 'react-router-dom';
-import { Box, AppBar, Toolbar, Typography, Container } from '@mui/material';
+import { Box, Container } from '@mui/material';
+import Header from '../components/Header/Header';
 
 export default function MainLayout() {
     return (
         <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
-            
-            <AppBar position="static">
-                <Toolbar>
-                <Typography variant="h6" component="div"  sx={{ flexGrow: 1,}}>
-                    MoveTrack
-                </Typography>
-                </Toolbar>
-            </AppBar>
+            <Header/>
             <Container 
                 component="main" 
                 maxWidth="sm"

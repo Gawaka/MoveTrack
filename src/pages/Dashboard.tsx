@@ -3,16 +3,17 @@ import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { type RootState } from '../store/store';
 
+
 export default function DashboardPage() {
     const navigate = useNavigate();
     const user = useSelector((state: RootState) => state.auth.user);
     const userName = user?.displayName || user?.email?.split('@')[0] || 'User';
 
     return (
-        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, p: 2 }}>
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, }}>
             <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
                 <Box>
-                    <Typography variant="h4" gutterBottom sx={{ m: 0, fontWeight: "800", pb: 1 }}>
+                    <Typography variant="h4" gutterBottom sx={{ m: 0, fontWeight: "800", }}>
                         Привіт, {userName} 👋
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
@@ -26,7 +27,14 @@ export default function DashboardPage() {
             <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column', gap: 1}}>
                 <Typography variant="h6" sx={{fontWeight: "bold"}}>Твої програми</Typography>
                 
-                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', p: 1.5, bgcolor: '#0d171c', borderRadius: 2, border: '1px solid', borderColor: 'divider' }}>
+                <Box sx={{ 
+                        display: 'flex', 
+                        justifyContent: 'space-between', 
+                        alignItems: 'center', p: 1.5, 
+                        bgcolor: '#0d171c', borderRadius: 2, 
+                        border: '1px solid', 
+                        borderColor: 'divider' 
+                    }}>
                     <Box>
                         <Typography sx={{fontWeight: "bold"}}>PPL</Typography>
                         <Typography variant="caption" color="text.secondary">3 дні на тиждень · Зал</Typography>

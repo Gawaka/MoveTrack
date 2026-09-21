@@ -35,7 +35,7 @@ export const theme = createTheme({
             root: {
             backgroundImage: 'none',
             border: '1px solid #24343b',
-            borderRadius: 18,
+            // borderRadius: 18,
             }
         }
         },

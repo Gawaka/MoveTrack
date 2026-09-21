@@ -10,6 +10,7 @@ import type { User } from './types/types';
 import RegisterPage from './pages/RegisterPage';
 import LoginPage from './pages/LoginPage';
 import DashboardPage from './pages/Dashboard';
+import NewWorkoutPage from './pages/NewWorkoutPage';
 import './App.css';
 
 
@@ -40,17 +41,19 @@ function App() {
   }, [dispatch]);
 
   return (
-    <Routes>
+<Routes>
       <Route path='/login' element={<LoginPage/>}/>
       <Route path='/register' element={<RegisterPage/>}/>
-      <Route path='/' element={<DashboardPage/>}/>
+      
+      {/* УСІ захищені сторінки мають бути ТІЛЬКИ всередині цієї "матрьошки" */}
       <Route element={<RequireAuth/>}>
         <Route element={<MainLayout/>}>
-          <Route path='/' element={<h2>Головна панель</h2>}/>
+          <Route path='/' element={<DashboardPage/>}/>
+          <Route path='/workout/new' element={<NewWorkoutPage/>}/>
         </Route>
       </Route>
     </Routes>
   );
 }
 
-export default App
+export default App;
