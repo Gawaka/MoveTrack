@@ -2,13 +2,17 @@ import { Box, Typography, Button, Paper } from '@mui/material';
 import { Form } from 'react-final-form';
 import { useNavigate } from 'react-router-dom';
 import { Field } from 'react-final-form';
+import { useDispatch } from 'react-redux';
+import { setDraft } from '../store/workoutSlice';
 
 export default function NewWorkoutPage() {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const onSubmit = (values: any) => {
         console.log("Вибрані налаштування тренування:", values);
-        // Пізніше ми тут додамо перехід на сторінку вибору вправ
+        dispatch(setDraft(values));
+        navigate('/workout/exercises');
     };
 
     return (
@@ -28,7 +32,7 @@ export default function NewWorkoutPage() {
                     onSubmit={onSubmit}
                     initialValues={{
                         programType: 'ppl',
-                        category: 'home',
+                        category: 'gym',
                         inventory: ['dumbbells', 'pullup_bar', 'bench']
                     }}
                     render={({ handleSubmit, values }) => (

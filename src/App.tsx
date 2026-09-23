@@ -11,6 +11,8 @@ import RegisterPage from './pages/RegisterPage';
 import LoginPage from './pages/LoginPage';
 import DashboardPage from './pages/Dashboard';
 import NewWorkoutPage from './pages/NewWorkoutPage';
+import ExercisesPage from './pages/ExercisesPage';
+import ActiveWorkoutPage from './pages/ActiveWorkoutPage';
 import './App.css';
 
 
@@ -44,12 +46,12 @@ function App() {
 <Routes>
       <Route path='/login' element={<LoginPage/>}/>
       <Route path='/register' element={<RegisterPage/>}/>
-      
-      {/* УСІ захищені сторінки мають бути ТІЛЬКИ всередині цієї "матрьошки" */}
       <Route element={<RequireAuth/>}>
         <Route element={<MainLayout/>}>
           <Route path='/' element={<DashboardPage/>}/>
           <Route path='/workout/new' element={<NewWorkoutPage/>}/>
+          <Route path='/workout/exercises' element={<ExercisesPage/>}/>
+          <Route path='/workout/active' element={<ActiveWorkoutPage/>}/>
         </Route>
       </Route>
     </Routes>
