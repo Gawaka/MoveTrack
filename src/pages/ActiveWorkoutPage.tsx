@@ -1,12 +1,17 @@
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
 import { Box, Typography, Button, Paper, TextField } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { clearDraft } from '../store/workoutSlice';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import { db } from '../config/firebase';
 import type { RootState } from '../store/store';
 
 export default function ActiveWorkoutPage() {
     const draft = useSelector((state: RootState) => state.workout.draft);
+    const user = useSelector((state: RootState)=> state.auth.user);
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     
     const [setsData, setSetsData] = useState<Record<string, {weight: string, reps: string, isDone: boolean}[]>>(()=> {
         const initial: any = {};
@@ -41,6 +46,33 @@ export default function ActiveWorkoutPage() {
         });
     };
 
+    const handleFinishWorkout = async ()=> {
+        if(!draft) {
+            console.error('Тренування порожнє!');
+            return;
+        };
+
+        try{
+            const completeWorkout = {
+                userId: user?.uid || 'anonymous',
+                status: 'Done',
+                exercises: draft.exercises,
+                category: draft.category,
+                inventory: draft.inventory || [],
+                programType: draft.programType,
+                sets: setsData,
+                createdAt: serverTimestamp(),
+            };
+
+            const docRef = await addDoc(collection(db, 'workouts'), completeWorkout);
+            console.log("Тренування успішно збережено! ID документа:", docRef.id);
+            dispatch(clearDraft());
+            navigate('/')
+        } catch(error) {
+            console.error("Помилка під час збереження тренування:", error);
+        }
+    };
+
     if (!draft || draft.exercises.length === 0) {
         return (
             <Box sx={{ p: 4, textAlign: 'center' }}>
@@ -50,7 +82,7 @@ export default function ActiveWorkoutPage() {
                 </Button>
             </Box>
         );
-    }
+    };
 
     return (
         <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: 3, pb: 10 }}>
@@ -66,7 +98,7 @@ export default function ActiveWorkoutPage() {
                     </Typography>
                 </Box>
 
-                <Button variant="contained" sx={{height: '30px'}} onClick={() => navigate('/workout/exercises')}>
+                <Button variant="contained" sx={{height: '30px'}} onClick={() => navigate('/')}>
                     Назад
                 </Button>
             </Box>
@@ -157,7 +189,8 @@ export default function ActiveWorkoutPage() {
                     variant="contained" 
                     color="error" 
                     size="small"  
-                    onClick={() => console.log('Фінальні дані:', setsData)}
+                    // onClick={() => console.log('Фінальні дані:', setsData)}
+                    onClick={handleFinishWorkout}
                     sx={{width: '48%', alignSelf: 'center'}}
                     >
                     Завершити тренування

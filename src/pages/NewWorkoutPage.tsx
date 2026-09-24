@@ -18,13 +18,18 @@ export default function NewWorkoutPage() {
     return (
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
             {/* Заголовок */}
-            <Box>
-                <Typography variant="h4" gutterBottom sx={{ m: 0, fontWeight:"800" }}>
-                    Новий день
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                    Налаштуй тренування перед додаванням вправ.
-                </Typography>
+            <Box sx={{display: 'flex', justifyContent: 'space-between'}}>
+                <Box>   
+                    <Typography variant="h4" gutterBottom sx={{ m: 0, fontWeight:"800" }}>
+                        Новий день
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                        Налаштуй тренування перед додаванням вправ.
+                    </Typography>
+                </Box>
+                <Button variant="contained" sx={{height: '30px'}} onClick={() => navigate('/')}>
+                    Назад
+                </Button>
             </Box>
             {/* Контейнер форми */}
             <Paper sx={{ p: 2 }}>
