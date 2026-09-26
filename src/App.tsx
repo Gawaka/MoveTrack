@@ -13,6 +13,7 @@ import DashboardPage from './pages/Dashboard';
 import NewWorkoutPage from './pages/NewWorkoutPage';
 import ExercisesPage from './pages/ExercisesPage';
 import ActiveWorkoutPage from './pages/ActiveWorkoutPage';
+import WorkoutDetailsPage from './pages/WorkoutDetailsPage';
 import './App.css';
 
 
@@ -52,6 +53,7 @@ function App() {
           <Route path='/workout/new' element={<NewWorkoutPage/>}/>
           <Route path='/workout/exercises' element={<ExercisesPage/>}/>
           <Route path='/workout/active' element={<ActiveWorkoutPage/>}/>
+          <Route path="/history/:id" element={<WorkoutDetailsPage />} />
         </Route>
       </Route>
     </Routes>

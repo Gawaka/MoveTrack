@@ -1,20 +1,81 @@
 import { useState } from 'react';
-import { Box, Typography, Button, Paper, TextField, Tabs, Tab } from '@mui/material';
+import { Box, Typography, Button, Paper, TextField, Tabs, Tab, CircularProgress } from '@mui/material';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import type { RootState } from '../store/store';
 import { useDispatch } from 'react-redux';
 import { addExercise, removeExercise } from '../store/workoutSlice';
+import { useQuery } from '@tanstack/react-query';
+import { collection, getDocs } from 'firebase/firestore';
+import { db } from '../config/firebase';
 
-const MOCK_EXERCISES = [
-    { id: '1', name: 'Жим гантелей на лаві', target: 'Груди', equipment: 'bench' },
-    { id: '2', name: 'Підтягування', target: 'Спина', equipment: 'pullup_bar' },
-    { id: '3', name: 'Румунська тяга з гантелями', target: 'Ноги', equipment: 'dumbbells' },
-    { id: '4', name: 'Згинання рук з EZ-штангою', target: 'Руки', equipment: 'ez_bar' },
-    { id: '5', name: 'Віджимання на брусах', target: 'Груди', equipment: 'dip_bars' },
-    { id: '6', name: 'Французький жим з EZ-штангою', target: 'Руки', equipment: 'ez_bar' },
-    { id: '7', name: 'Випади з гантелями', target: 'Ноги', equipment: 'dumbbells' },
-];
+interface Exercise {
+    id: string;
+    name: string;
+    slug: string;
+    category: string;
+    muscleGroups: string[];
+    equipmentIds: string[];
+    location: string[];
+    difficulty: string;
+    instructions: string[];
+};
+
+interface Equipment {
+    id: string;
+    name: string;
+    slug: string;
+    category: string;
+    type: string;
+    location: string[];
+    adjustable: boolean;
+    description: string;
+};
+
+const CATEGORY_NAMES: Record<string, string> = {
+    chest: 'Груди',
+    back: 'Спина',
+    legs: 'Ноги',
+    arms: 'Руки',
+    shoulders: 'Плечі',
+    core: 'Прес',
+    full_body: 'Все тіло'
+};
+
+const DIFFICULTY_NAMES: Record<string, string> = {
+    beginner: 'Початківець',
+    intermediate: 'Середній',
+    advanced: 'Просунутий'
+};
+
+const LOCATION_NAMES:  Record<string, string> = {
+    gym: 'Тренажерний зал',
+    home: 'Дім'
+};
+
+const fetchExercises = async (): Promise<Exercise[]>=> {
+    const collectionExercises = collection(db, 'exercises');
+    const querySnapshot = await getDocs(collectionExercises);
+
+    const exercises = querySnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+    })) as Exercise[];
+
+    return exercises;
+};
+
+const fetchEquipments = async (): Promise<Equipment[]>=> {
+    const collectionEquipment = collection(db, 'equipment');
+    const querySnapshot = await getDocs(collectionEquipment);
+
+    const equipment = querySnapshot.docs.map((doc)=> ({
+        id: doc.id,
+        ...doc.data(),
+    })) as Equipment[];
+
+    return equipment;
+};
 
 export default function ExercisesPage() {
     const navigate = useNavigate();
@@ -23,19 +84,37 @@ export default function ExercisesPage() {
     const [searchQuery, setSearchQuery] = useState('');
 
     const dispatch = useDispatch();
+    const { data: exercisesList = [], isLoading, isError } = useQuery({
+        queryKey: ['exercises'],
+        queryFn: fetchExercises,
+    });
+    const { data: equipmentList = [] } = useQuery({
+        queryKey: ['equipment'],
+        queryFn: fetchEquipments,
+    });
 
-    const tabMapping = ['Усі', 'Груди', 'Руки', 'Спина', 'Ноги'];
-    const activeTab = tabMapping[tabIndex];
+    console.log(equipmentList);
 
-const filteredExercises = MOCK_EXERCISES.filter(exercise => {
+    const DYNAMIC_EQUIPMENT_NAMES = equipmentList.reduce((acc, eq) => {
+        acc[eq.id] = eq.name;
+        return acc;
+    }, {} as Record<string, string>);
+
+    const tabKeys = ['all', 'chest', 'arms', 'back', 'legs', 'shoulders', 'core', 'full_body'];
+    const activeTabKey = tabKeys[tabIndex];
+
+    const filteredExercises = exercisesList.filter(exercise => {
         const matchesSearch = exercise.name.toLowerCase().includes(searchQuery.toLowerCase());
-        const matchesTab = activeTab === 'Усі' || exercise.target === activeTab;
+        const matchesTab = activeTabKey === 'all' || exercise.category === activeTabKey;
         let matchesInventory = true;
 
         if (draft?.category === 'home') {
-            matchesInventory = draft?.inventory.includes(exercise.equipment);
-        };
-
+            if (exercise.equipmentIds.length > 0) {
+                matchesInventory = exercise.equipmentIds.some(eq => draft?.inventory.includes(eq));
+            } else {
+                matchesInventory = true;
+            };
+        }
         return matchesSearch && matchesTab && matchesInventory;
     });
 
@@ -48,11 +127,16 @@ const filteredExercises = MOCK_EXERCISES.filter(exercise => {
                 </Button>
             </Box>
         );
-    }
+    };
 
     return (
-        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, pb: 10 }}>
-            {/* Хедер */}
+        <>
+            {isError === true ? <Typography sx={{color: 'red', fontWeight: "bold"}}>"Помилка завантаження".</Typography> : null}
+            {isLoading === true 
+            ? 
+            <Box sx={{ display: 'flex', justifyContent: 'center', p: 5 }}><CircularProgress /></Box>
+            :
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, pb: 10 }}>
             <Box sx={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '15px'}}>
                 <Typography variant="h4" gutterBottom sx={{ m: 0, fontWeight: "800" }}>
                     Обери вправи
@@ -76,6 +160,9 @@ const filteredExercises = MOCK_EXERCISES.filter(exercise => {
                     <Tab label="Руки" />
                     <Tab label="Спина" />
                     <Tab label="Ноги" />
+                    <Tab label="Плечі" />
+                    <Tab label="Прес" />
+                    <Tab label="Все тіло" />
                 </Tabs>
                 {/* 2. Пошук */}
                 <TextField
@@ -113,21 +200,32 @@ const filteredExercises = MOCK_EXERCISES.filter(exercise => {
                                         }}>
                                             🏋️
                                         </Box>
-                                        <Box>
+                                        <Box sx={{display: 'flex', flexDirection: 'column'}}>
                                             <Typography sx={{fontWeight: "bold"}}>{exercise.name}</Typography>
                                             <Typography variant="caption" color="text.secondary">
-                                                {exercise.target} · {exercise.equipment}
+                                                {CATEGORY_NAMES[exercise.category] || exercise.category}
+                                                {' · '}
+                                                {exercise.equipmentIds.length === 0 
+                                                    ? 'Власна вага' 
+                                                    : exercise.equipmentIds.map(item => DYNAMIC_EQUIPMENT_NAMES[item] || item).join(', ') 
+                                                }
+                                            </Typography>
+                                            <Typography variant="caption" color="text.secondary">
+                                                {exercise.location.map(item=> LOCATION_NAMES[item] || item).join(', ')}
+                                            </Typography>
+                                            <Typography variant="caption" color="text.secondary">
+                                                {DIFFICULTY_NAMES[exercise.difficulty]}
                                             </Typography>
                                         </Box>
                                         <Button 
                                             variant={isAdded ? "outlined" : "contained"} 
-                                            color={isAdded ? "error" : "primary"} // Робимо кнопку червоною, якщо вправу можна прибрати (опціонально)
+                                            color={isAdded ? "error" : "primary"}
                                             size="small"
                                             onClick={() => {
                                                 if (isAdded) {
-                                                    dispatch(removeExercise(exercise.id)); // Видаляємо, якщо вже є
+                                                    dispatch(removeExercise(exercise.id));
                                                 } else {
-                                                    dispatch(addExercise(exercise));       // Додаємо, якщо немає
+                                                    dispatch(addExercise(exercise));
                                                 }
                                             }}
                                         >
@@ -163,6 +261,8 @@ const filteredExercises = MOCK_EXERCISES.filter(exercise => {
                             </Box>
                         </Box>
                     )}
-        </Box>
+                </Box>
+            }
+        </>
     );
-}
+};

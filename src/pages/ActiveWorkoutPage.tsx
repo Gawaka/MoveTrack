@@ -12,7 +12,8 @@ export default function ActiveWorkoutPage() {
     const user = useSelector((state: RootState)=> state.auth.user);
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    
+
+    const [notes, setNotes] = useState('');
     const [setsData, setSetsData] = useState<Record<string, {weight: string, reps: string, isDone: boolean}[]>>(()=> {
         const initial: any = {};
         if(draft) {
@@ -61,6 +62,7 @@ export default function ActiveWorkoutPage() {
                 inventory: draft.inventory || [],
                 programType: draft.programType,
                 sets: setsData,
+                notes: notes,
                 createdAt: serverTimestamp(),
             };
 
@@ -86,7 +88,6 @@ export default function ActiveWorkoutPage() {
 
     return (
         <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: 3, pb: 10 }}>
-            
             {/* Хедер тренування */}
             <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <Box>
@@ -185,6 +186,24 @@ export default function ActiveWorkoutPage() {
                     </Button>
                 </Paper>
             ))}
+            {/* Поле для нотаток */}
+            <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column', gap: 1 }}>
+                <Typography variant="subtitle2" sx={{ fontWeight: 'bold' }}>
+                    📝 Нотатки до тренування
+                </Typography>
+                <TextField
+                    multiline
+                    minRows={3}
+                    placeholder="Як пройшло тренування? Що варто запам'ятати на наступний раз..."
+                    value={notes}
+                    onChange={(e) => setNotes(e.target.value)}
+                    sx={{ 
+                        bgcolor: '#0c1519', 
+                        borderRadius: 1,
+                        '& .MuiOutlinedInput-root': { p: 1.5 }
+                    }}
+                />
+            </Paper>
                 <Button 
                     variant="contained" 
                     color="error" 

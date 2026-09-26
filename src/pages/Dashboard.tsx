@@ -4,7 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { type RootState } from '../store/store';
 import { db } from '../config/firebase';
-import { collection, query, where, orderBy, limit, getDocs } from "firebase/firestore";
+import { collection, query, where, orderBy, getDocs } from "firebase/firestore";
+// import { collection, query, where, orderBy, limit, getDocs } from "firebase/firestore";
 
 const PROGRAM_NAMES: Record<string, string> = {
     ppl: 'PPL (Push-Pull-Legs)',
@@ -94,8 +95,9 @@ export default function DashboardPage() {
                 )}
                 
                 {!loading && history.length > 0 && history.map((workout) => (
-                    <Box 
-                        key={workout.id} // 👈 Ось цей обов'язковий ключ!
+                    <Box
+                        onClick={()=> navigate(`/history/${workout.id}`)}
+                        key={workout.id}
                         sx={{
                             display: 'flex', 
                             flexDirection: 'column', 
@@ -109,7 +111,6 @@ export default function DashboardPage() {
                             '&:hover': { borderColor: 'primary.main', cursor: 'pointer' } // Готуємо до майбутнього кліку
                         }}
                     >
-                        {/* Верхній ряд: Назва програми та статус */}
                         <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
                             <Box>
                                 <Typography sx={{ fontWeight: "bold", fontSize: '1.1rem' }}>
@@ -119,9 +120,7 @@ export default function DashboardPage() {
                                     {workout.createdAt?.toDate().toLocaleDateString('uk-UA', { day: 'numeric', month: 'long', year: 'numeric' })}
                                 </Typography>
                             </Box>
-                            
-                            {/* Використовуємо Chip замість звичайного Typography для статусу */}
-                            <Chip 
+                            <Chip
                                 label="Виконано" 
                                 size="small" 
                                 sx={{ bgcolor: '#12352a', color: 'primary.main', fontWeight: 'bold', borderRadius: 1 }} 
