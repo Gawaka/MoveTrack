@@ -4,8 +4,7 @@ import { signOut } from 'firebase/auth';
 import { useDispatch } from 'react-redux';
 import { auth } from '../../config/firebase';
 import { clearUser } from '../../store/authSlice';
-import logo from '../../../public/logo.svg';
-
+import logo from '../../assets/logo.svg';
 
 export default function Header() {
     const navigate = useNavigate();
@@ -30,7 +29,7 @@ export default function Header() {
                     <Box
                         component="img"
                         src={logo}
-                        alt="Логотип сайту"
+                        alt="Logo"
                         sx={{
                             height: 20,
                             width: 50,

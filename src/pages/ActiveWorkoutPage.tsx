@@ -88,14 +88,14 @@ export default function ActiveWorkoutPage() {
 
     return (
         <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: 3, pb: 10 }}>
-            {/* Хедер тренування */}
+            {/* Traning header */}
             <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <Box>
                     <Typography variant="h5" sx={{fontWeight: "bold"}}>
                         Тренування
                     </Typography>
                     <Typography variant="body2" color="primary.main">
-                        ⏱ 00:00 {/* Потім тут будемо рахувати час */}
+                        ⏱ 00:00 {/* Timer */}
                     </Typography>
                 </Box>
 
@@ -140,7 +140,7 @@ export default function ActiveWorkoutPage() {
                                     }}>
                                     {setIndex + 1}
                                 </Box>
-                                {/* Поле для кілограмів */}
+                                {/* Area for weight */}
                                 <TextField 
                                     size="small"
                                     type="number" 
@@ -149,7 +149,7 @@ export default function ActiveWorkoutPage() {
                                     disabled={set.isDone}
                                     sx={{ bgcolor: '#0c1519', borderRadius: 1, input: { textAlign: 'center', p: 1 } }} 
                                 />
-                                {/* Поле для повторень */}
+                                {/* Area for reps */}
                                 <TextField 
                                     size="small" 
                                     type="number" 
@@ -158,7 +158,6 @@ export default function ActiveWorkoutPage() {
                                     disabled={set.isDone}
                                     sx={{ bgcolor: '#0c1519', borderRadius: 1, input: { textAlign: 'center', p: 1 }}} 
                                 />
-                                {/* Кнопка "Виконано" (поки що просто квадратик) */}
                                 <Button 
                                     variant="outlined"
                                     onClick={() => toggleSetDone(exercise.id, setIndex)}
@@ -186,7 +185,7 @@ export default function ActiveWorkoutPage() {
                     </Button>
                 </Paper>
             ))}
-            {/* Поле для нотаток */}
+            {/* Notes */}
             <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column', gap: 1 }}>
                 <Typography variant="subtitle2" sx={{ fontWeight: 'bold' }}>
                     📝 Нотатки до тренування
@@ -208,7 +207,6 @@ export default function ActiveWorkoutPage() {
                     variant="contained" 
                     color="error" 
                     size="small"  
-                    // onClick={() => console.log('Фінальні дані:', setsData)}
                     onClick={handleFinishWorkout}
                     sx={{width: '48%', alignSelf: 'center'}}
                     >

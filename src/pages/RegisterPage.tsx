@@ -7,7 +7,7 @@ import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { useDispatch } from 'react-redux';
 import { setUser } from '../store/authSlice';
 import { auth } from '../config/firebase';
-import logo from '../../public/logo_title.png';
+import logo from '../assets/logo_title.png';
 
 export default function RegisterPage() {
     const navigate = useNavigate();
@@ -56,7 +56,7 @@ export default function RegisterPage() {
                             <Box
                                 component="img"
                                 src={logo}
-                                alt="Логотип сайту"
+                                alt="Logo"
                                 sx={{
                                     height: 55,
                                     width: 'auto',

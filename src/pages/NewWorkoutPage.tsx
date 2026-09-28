@@ -4,6 +4,72 @@ import { useNavigate } from 'react-router-dom';
 import { Field } from 'react-final-form';
 import { useDispatch } from 'react-redux';
 import { setDraft } from '../store/workoutSlice';
+import { type ProgramType } from '../types/types';
+
+interface ProgramConfig {
+    id: ProgramType;
+    title: string;
+    description: string;
+};
+
+interface TrainingConfigType {
+    id: string;
+    title: string;
+    description: string;
+}
+
+interface TrainingConfigType {
+    id: string;
+    title: string;
+    description: string;
+}
+
+const TRAINING_CATEGORY_CONFIG: TrainingConfigType[] = [
+    { 
+        id: 'gym',
+        title: '🏋️ GYM', 
+        description: 'Тренування в залі' 
+    },
+    { 
+        id: 'home', 
+        title: '🏠 Дім', 
+        description: 'Домашнє тренування' 
+    },
+    { 
+        id: 'bodyweight', 
+        title: '🤸 Власна вага', 
+        description: 'Тренування із власною вагою'
+    },
+];
+
+const PROGRAMS_CONFIG: ProgramConfig[] = [
+    {
+        id: 'fullbody',
+        title: 'Full body',
+        description: 'Все тіло',
+    },
+    {
+        id: 'ppl',
+        title: 'PPL',
+        description: 'Push · Pull · Legs',
+    },
+    {
+        id: 'split',
+        title: 'Спліт',
+        description: 'Спліт-тренування',
+    },
+    {
+        id: 'upper_lower',
+        title: 'Верх-низ',
+        description: 'Спліт-Upper/Lower',
+    },
+    {
+        id: 'circuit_traning',
+        title: 'Циклічне тренування',
+        description: 'Циклічне тренування/Circuit traning',
+    }
+];
+
 
 export default function NewWorkoutPage() {
     const navigate = useNavigate();
@@ -17,7 +83,7 @@ export default function NewWorkoutPage() {
 
     return (
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-            {/* Заголовок */}
+            {/* Title */}
             <Box sx={{display: 'flex', justifyContent: 'space-between'}}>
                 <Box>   
                     <Typography variant="h4" gutterBottom sx={{ m: 0, fontWeight:"800" }}>
@@ -31,7 +97,7 @@ export default function NewWorkoutPage() {
                     Назад
                 </Button>
             </Box>
-            {/* Контейнер форми */}
+            {/* Form box */}
             <Paper sx={{ p: 2 }}>
                 <Form
                     onSubmit={onSubmit}
@@ -49,81 +115,43 @@ export default function NewWorkoutPage() {
                                 flexDirection: 'column', 
                                 gap: 3 
                             }}>
-                            {/* СЕКЦІЯ: ТИП ПРОГРАМИ */}
+                            {/* section: Program type */}
                             <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5 }}>
                                 <Typography variant="h6" sx={{fontWeight: "bold"}}>💪Тип програми</Typography>
-                                {/* ОПЦІЯ 1: Full body */}
-                                <Field name="programType" type="radio" value="full_body">
-                                    {({ input }) => {
-                                        const isSelected = input.checked;
-                                        return (
-                                            <Box 
-                                                onClick={() => input.onChange('full_body')}
-                                                sx={{ 
-                                                    p: 2, 
-                                                    border: '1px solid', 
-                                                    borderColor: isSelected ? 'primary.main' : 'divider',
-                                                    bgcolor: isSelected ? '#103125' : '#0d171c',
-                                                    borderRadius: 2,
-                                                    cursor: 'pointer'
-                                                }}
-                                            >
-                                                <Typography sx={{fontWeight: "bold"}}>Full body</Typography>
-                                                <Typography variant="caption" color="text.secondary">Все тіло</Typography>
-                                            </Box>
-                                        );
-                                    }}
-                                </Field>
-                                <Field name="programType" type="radio" value="split">
-                                    {({ input }) => {
-                                        const isSelected = input.checked;
-                                        return (
-                                            <Box 
-                                                onClick={() => input.onChange('split')}
-                                                sx={{ 
-                                                    p: 2, 
-                                                    border: '1px solid', 
-                                                    borderColor: isSelected ? 'primary.main' : 'divider',
-                                                    bgcolor: isSelected ? '#103125' : '#0d171c',
-                                                    borderRadius: 2,
-                                                    cursor: 'pointer'
-                                                }}
-                                            >
-                                                <Typography sx={{fontWeight: "bold"}}>Спліт</Typography>
-                                                <Typography variant="caption" color="text.secondary">Спліт-тренування</Typography>
-                                            </Box>
-                                        );
-                                    }}
-                                </Field>
-                                {/* ОПЦІЯ 2: PPL */}
-                                <Field name="programType" type="radio" value="ppl">
-                                    {({ input }) => {
-                                        const isSelected = input.checked;
-                                        return (
-                                            <Box 
-                                                onClick={() => input.onChange('ppl')}
-                                                sx={{ 
-                                                    p: 2, border: '1px solid', borderRadius: 2, cursor: 'pointer',
-                                                    borderColor: isSelected ? 'primary.main' : 'divider',
-                                                    bgcolor: isSelected ? '#103125' : '#0d171c',
-                                                }}
-                                            >
-                                                <Typography sx={{fontWeight: "bold"}}>PPL</Typography>
-                                                <Typography variant="caption" color="text.secondary">Push · Pull · Legs</Typography>
-                                            </Box>
-                                        );
-                                    }}
-                                </Field>
+                                {PROGRAMS_CONFIG.map(program=> (
+                                    <Field key={program.id} name="programType" type="radio" value={program.id}>
+                                        {({ input }) => {
+                                            const isSelected = input.checked;
+                                            return (
+                                                <Box 
+                                                    onClick={() => input.onChange(program.id)}
+                                                    sx={{ 
+                                                        p: 2, 
+                                                        border: '1px solid', 
+                                                        borderColor: isSelected ? 'primary.main' : 'divider',
+                                                        bgcolor: isSelected ? '#103125' : '#0d171c',
+                                                        borderRadius: 2,
+                                                        cursor: 'pointer'
+                                                    }}
+                                                >
+                                                    <Typography sx={{fontWeight: "bold"}}>{program.title}</Typography>
+                                                    <Typography variant="caption" color="text.secondary">{program.description}</Typography>
+                                                </Box>
+                                            );
+                                        }}
+                                    </Field>
+                                ))}
                             </Box>
-                            {/* СЕКЦІЯ: КАТЕГОРІЯ */}
+                            {/* section: Category(GYM, HOME...) */}
                             <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5 }}>
                                 <Typography variant="h6" sx={{fontWeight: "bold"}}>Категорія</Typography>
-                                    <Field name="category" type="radio" value="gym">
+                                {TRAINING_CATEGORY_CONFIG.map(category=> (
+                                <Field key={category.id} name="category" type="radio" value={category.id}>
                                         {({ input }) => {
                                             const isSelected = input.checked;
                                             return (
                                                 <Box 
-                                                    onClick={() => input.onChange('gym')}
+                                                    onClick={() => input.onChange(category.id)}
                                                     sx={{ 
                                                         p: 2, 
                                                         border: '1px solid', 
@@ -133,62 +161,21 @@ export default function NewWorkoutPage() {
                                                         cursor: 'pointer'
                                                     }}
                                                 >
-                                                    <Typography sx={{fontWeight: "bold"}}>🏋️ GYM</Typography>
-                                                    <Typography variant="caption" color="text.secondary">Тренування в залі</Typography>
+                                                    <Typography sx={{fontWeight: "bold"}}>{category.title}</Typography>
+                                                    <Typography variant="caption" color="text.secondary">{category.description}</Typography>
                                                 </Box>
                                             );
                                         }}
                                     </Field>
-                                    <Field name="category" type="radio" value="home">
-                                        {({ input }) => {
-                                            const isSelected = input.checked;
-                                            return (
-                                                <Box 
-                                                    onClick={() => input.onChange('home')}
-                                                    sx={{ 
-                                                        p: 2, 
-                                                        border: '1px solid', 
-                                                        borderColor: isSelected ? 'primary.main' : 'divider',
-                                                        bgcolor: isSelected ? '#103125' : '#0d171c',
-                                                        borderRadius: 2,
-                                                        cursor: 'pointer'
-                                                    }}
-                                                >
-                                                    <Typography sx={{fontWeight: "bold"}}>🏠 Дім</Typography>
-                                                    <Typography variant="caption" color="text.secondary">Домашне тренування</Typography>
-                                                </Box>
-                                            );
-                                        }}
-                                    </Field>
-                                    <Field name="category" type="radio" value="bodyweight">
-                                        {({ input }) => {
-                                            const isSelected = input.checked;
-                                            return (
-                                                <Box 
-                                                    onClick={() => input.onChange('bodyweight')}
-                                                    sx={{ 
-                                                        p: 2, 
-                                                        border: '1px solid', 
-                                                        borderColor: isSelected ? 'primary.main' : 'divider',
-                                                        bgcolor: isSelected ? '#103125' : '#0d171c',
-                                                        borderRadius: 2,
-                                                        cursor: 'pointer'
-                                                    }}
-                                                >
-                                                    <Typography sx={{fontWeight: "bold"}}>🤸 Власна вага</Typography>
-                                                    <Typography variant="caption" color="text.secondary">Незабаром...</Typography>
-                                                </Box>
-                                            );
-                                        }}
-                                    </Field>
+                                ))}
                                 </Box>
-                                {/* СЕКЦІЯ: ІНВЕНТАР */}
+                                {/* Inventory */}
                                 {values.category !== 'gym' && (
                                     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
                                         <Typography variant="h6" sx={{ mt: 1,  fontWeight: "bold" }}>
                                             Інвентар
                                         </Typography>
-                                        {/* ОПЦІЯ 1: Гантелі */}
+                                        {/* option 1*/}
                                         <Field name="inventory" type="checkbox" value="dumbbells">
                                             {({ input }) => (
                                                 <Box 
@@ -208,7 +195,7 @@ export default function NewWorkoutPage() {
                                                 </Box>
                                             )}
                                         </Field>
-                                        {/* ОПЦІЯ 2: Турнік */}
+                                        {/* option 2*/}
                                         <Field name="inventory" type="checkbox" value="pullup_bar">
                                             {({ input }) => (
                                                 <Box 
@@ -222,16 +209,15 @@ export default function NewWorkoutPage() {
                                                         borderRadius: 2, 
                                                         bgcolor: '#0d171c', 
                                                         cursor: 'pointer' 
-                                                        }}>
+                                                    }}>
                                                     <Typography>Турнік</Typography>
                                                     <input type="checkbox" {...input} style={{ accentColor: '#35df88', width: 20, height: 20 }} />
                                                 </Box>
                                             )}
                                         </Field>
-                                        {/* ТУТ БУДЕ ОПЦІЯ 3 ТА 4 */}
-                                    </Box>
+                                    </Box> 
                                 )}
-                            {/* Кнопки дій */}
+                            {/* action btns */}
                             <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5, mt: 2 }}>
                                 <Button variant="contained" type="submit" size="large">
                                     Далі — додати вправи
@@ -246,4 +232,4 @@ export default function NewWorkoutPage() {
             </Paper>
         </Box>
     );
-}
+};

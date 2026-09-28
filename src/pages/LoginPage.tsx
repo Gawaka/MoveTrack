@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { Link as RouterLink } from 'react-router-dom';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../config/firebase';
-import logo from '../../public/logo_title.png';
+import logo from '../assets/logo_title.png';
 
 
 export default function LoginPage() {
@@ -37,7 +37,7 @@ export default function LoginPage() {
                             <Box
                                 component="img"
                                 src={logo}
-                                alt="Логотип сайту"
+                                alt="Logo"
                                 sx={{
                                     height: 55,
                                     width: 'auto',

@@ -9,7 +9,7 @@ interface WorkoutData {
     programType: string;
     category: string;
     inventory: string[];
-    createdAt: any; // Timestamp з Firebase
+    createdAt: any; // Timestamp from Firebase
     exercises: any[]; 
     sets: Record<string, { weight: string; reps: string; isDone: boolean }[]>;
     notes?: string;
@@ -35,7 +35,7 @@ const fetchWorkoutById = async (id: string): Promise<WorkoutData> => {
 };
 
 export default function WorkoutDetailsPage() {
-    const { id } = useParams<{ id: string }>(); // ID з URL
+    const { id } = useParams<{ id: string }>(); // id from URL
     const navigate = useNavigate();
 
     const { data: workout, isLoading, isError } = useQuery({
@@ -49,7 +49,7 @@ export default function WorkoutDetailsPage() {
 
     return (
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3, pb: 10 }}>
-            {/* Хедер */}
+            {/* Header */}
             <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <Box>
                     <Typography variant="h5" sx={{ fontWeight: "bold" }}>
@@ -73,7 +73,7 @@ export default function WorkoutDetailsPage() {
                     </Typography>
                 </Paper>
             )}
-            {/* Деталі підходів */}
+            {/* Sets details */}
             <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
                 {workout.exercises.map((exercise: any, index: number) => {
                     const exerciseSets = workout.sets[exercise.id] || [];
@@ -84,13 +84,13 @@ export default function WorkoutDetailsPage() {
                                 {index + 1}. {exercise.name}
                             </Typography>
                             <Divider />
-                            {/* Заголовки таблиці підходів */}
+                            {/* Titles table Sets */}
                             <Box sx={{ display: 'grid', gridTemplateColumns: '40px 1fr 1fr', gap: 1, textAlign: 'center', color: 'text.secondary', fontSize: '0.8rem' }}>
                                 <Typography variant="caption">Сет</Typography>
                                 <Typography variant="caption">КГ</Typography>
                                 <Typography variant="caption">Повторення</Typography>
                             </Box>
-                            {/* підходи */}
+                            {/* Sets */}
                             {exerciseSets.map((set: any, setIndex: number) => (
                                 <Box key={setIndex} sx={{ display: 'grid', gridTemplateColumns: '40px 1fr 1fr', gap: 1, alignItems: 'center' }}>
                                     <Box sx={{ textAlign: 'center', fontWeight: 'bold', bgcolor: '#17242b', p: 1, borderRadius: 1 }}>

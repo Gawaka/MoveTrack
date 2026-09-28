@@ -5,7 +5,6 @@ import { useSelector } from 'react-redux';
 import { type RootState } from '../store/store';
 import { db } from '../config/firebase';
 import { collection, query, where, orderBy, getDocs } from "firebase/firestore";
-// import { collection, query, where, orderBy, limit, getDocs } from "firebase/firestore";
 
 const PROGRAM_NAMES: Record<string, string> = {
     ppl: 'PPL (Push-Pull-Legs)',
@@ -70,6 +69,7 @@ export default function DashboardPage() {
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, }}>
             <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
                 <Box>
+                    {/* Header */}
                     <Typography variant="h4" gutterBottom sx={{ m: 0, fontWeight: "800", }}>
                         Привіт, {userName} 👋
                     </Typography>
@@ -81,19 +81,19 @@ export default function DashboardPage() {
                     {userName.charAt(0).toUpperCase()}
                 </Avatar>
             </Box>
+            {/* Traning */}
             <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column', gap: 1.5 }}>
                 <Typography variant="h6" sx={{ fontWeight: "bold", mb: 0.5 }}>
                     Твої тренування
                 </Typography>
-                
+
                 {loading && <CircularProgress size={24} sx={{ alignSelf: 'center', my: 2 }} />}
-                
                 {!loading && history.length === 0 && (
                     <Typography color="text.secondary" align="center" sx={{ py: 3 }}>
                         У тебе ще немає завершених тренувань.<br/>Час почати!
                     </Typography>
                 )}
-                
+                {/* Traning settings */}
                 {!loading && history.length > 0 && history.map((workout) => (
                     <Box
                         onClick={()=> navigate(`/history/${workout.id}`)}
@@ -108,7 +108,7 @@ export default function DashboardPage() {
                             border: '1px solid', 
                             borderColor: 'divider',
                             transition: 'border-color 0.2s ease',
-                            '&:hover': { borderColor: 'primary.main', cursor: 'pointer' } // Готуємо до майбутнього кліку
+                            '&:hover': { borderColor: 'primary.main', cursor: 'pointer' }
                         }}
                     >
                         <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
@@ -126,7 +126,6 @@ export default function DashboardPage() {
                                 sx={{ bgcolor: '#12352a', color: 'primary.main', fontWeight: 'bold', borderRadius: 1 }} 
                             />
                         </Box>
-                        {/* Нижній ряд: Категорія та інвентар */}
                         <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, alignItems: 'center' }}>
                             <Chip 
                                 label={CATEGORY_ICONS[workout.category] || workout.category} 
@@ -134,7 +133,6 @@ export default function DashboardPage() {
                                 variant="outlined" 
                                 sx={{ borderColor: 'divider', color: 'text.secondary', borderRadius: 1 }} 
                             />
-                            {/* Виводимо інвентар тільки для дому, і перекладаємо його через словник */}
                             {workout.category === 'home' && workout.inventory && workout.inventory.length > 0 && (
                                 <Typography variant="caption" color="text.secondary">
                                     {workout.inventory.map((item: string) => INVENTORY_NAMES[item] || item).join(', ')}
@@ -144,6 +142,7 @@ export default function DashboardPage() {
                     </Box>
                 ))}
             </Paper>
+            {/* New day */}
             <Paper sx={{ p: 2 }}>
                 <Typography variant="h6" sx={{fontWeight: "bold"}}>Швидкий старт</Typography>
                 <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>

@@ -129,13 +129,11 @@ export default function ExercisesPage() {
         );
     };
 
+        if (isLoading) return <Box sx={{ display: 'flex', justifyContent: 'center', p: 5 }}><CircularProgress /></Box>;
+        if (isError) return<Typography sx={{color: 'red', fontWeight: "bold"}}>"Помилка завантаження тренування".</Typography>;
+
     return (
         <>
-            {isError === true ? <Typography sx={{color: 'red', fontWeight: "bold"}}>"Помилка завантаження".</Typography> : null}
-            {isLoading === true 
-            ? 
-            <Box sx={{ display: 'flex', justifyContent: 'center', p: 5 }}><CircularProgress /></Box>
-            :
             <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, pb: 10 }}>
             <Box sx={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '15px'}}>
                 <Typography variant="h4" gutterBottom sx={{ m: 0, fontWeight: "800" }}>
@@ -147,7 +145,7 @@ export default function ExercisesPage() {
             </Box>
             <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column', gap: 2 }}>
                 
-                {/* 1. Вкладки (Tabs) */}
+                {/* Tabs */}
                 <Tabs 
                     value={tabIndex} 
                     onChange={(_, newValue) => setTabIndex(newValue)} 
@@ -155,6 +153,7 @@ export default function ExercisesPage() {
                     scrollButtons="auto"
                     sx={{ minHeight: 36, '& .MuiTab-root': { minHeight: 36, py: 0 }}}
                 >
+                    {/* Category exercises */}
                     <Tab label="Усі" />
                     <Tab label="Груди" />
                     <Tab label="Руки" />
@@ -164,7 +163,7 @@ export default function ExercisesPage() {
                     <Tab label="Прес" />
                     <Tab label="Все тіло" />
                 </Tabs>
-                {/* 2. Пошук */}
+                {/* Search */}
                 <TextField
                     fullWidth
                     size="small"
@@ -173,7 +172,7 @@ export default function ExercisesPage() {
                     onChange={(e) => setSearchQuery(e.target.value)}
                     sx={{ bgcolor: '#0c1519', borderRadius: 1 }}
                     />
-                        {/* СПИСОК ВПРАВ */}
+                        {/* Exercises list */}
                     <Box sx={{ display: 'flex', flexDirection: 'column' }}>
                         {filteredExercises.length === 0 ? (
                             <Typography color="text.secondary" align="center" sx={{ py: 4 }}>
@@ -236,7 +235,8 @@ export default function ExercisesPage() {
                             })
                         )}
                     </Box>
-                </Paper>
+                    </Paper>
+                    {/* Submit added btn */}
                     {draft.exercises.length > 0 && (
                         <Box sx={{
                             position: 'fixed',
@@ -249,6 +249,7 @@ export default function ExercisesPage() {
                             borderColor: 'divider',
                             zIndex: 1000
                         }}>
+                            
                             <Box sx={{ maxWidth: 'sm', mx: 'auto' }}>
                                 <Button 
                                     variant="contained" 
@@ -261,8 +262,7 @@ export default function ExercisesPage() {
                             </Box>
                         </Box>
                     )}
-                </Box>
-            }
+            </Box>
         </>
     );
 };
