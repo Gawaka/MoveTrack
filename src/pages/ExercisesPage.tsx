@@ -247,10 +247,10 @@ export default function ExercisesPage() {
                             bgcolor: '#101a20',
                             borderTop: '1px solid',
                             borderColor: 'divider',
-                            zIndex: 1000
+                            zIndex: 1001,
                         }}>
                             
-                            <Box sx={{ maxWidth: 'sm', mx: 'auto' }}>
+                            <Box sx={{ maxWidth: 'sm', mx: 'auto',}}>
                                 <Button 
                                     variant="contained" 
                                     fullWidth 
