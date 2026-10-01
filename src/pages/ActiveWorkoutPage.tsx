@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Box, Typography, Button, Paper, TextField } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
@@ -6,12 +6,22 @@ import { clearDraft } from '../store/workoutSlice';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { db } from '../config/firebase';
 import type { RootState } from '../store/store';
+import formatTime from '../utils/utils';
 
 export default function ActiveWorkoutPage() {
+    const [elapsedSeconds, setElapsedSeconds] = useState(0);
     const draft = useSelector((state: RootState) => state.workout.draft);
     const user = useSelector((state: RootState)=> state.auth.user);
     const navigate = useNavigate();
     const dispatch = useDispatch();
+
+    useEffect(()=> {
+        const intervalId = setInterval(()=> {
+            setElapsedSeconds((prev)=> prev + 1);
+        }, 1000);
+        
+        return ()=> clearInterval(intervalId);
+    }, []);
 
     const [notes, setNotes] = useState('');
     const [setsData, setSetsData] = useState<Record<string, {weight: string, reps: string, isDone: boolean}[]>>(()=> {
@@ -64,6 +74,7 @@ export default function ActiveWorkoutPage() {
                 sets: setsData,
                 notes: notes,
                 createdAt: serverTimestamp(),
+                duration: elapsedSeconds
             };
 
             const docRef = await addDoc(collection(db, 'workouts'), completeWorkout);
@@ -95,7 +106,8 @@ export default function ActiveWorkoutPage() {
                         Тренування
                     </Typography>
                     <Typography variant="body2" color="primary.main">
-                        ⏱ 00:00 {/* Timer */}
+                         {/* Timer */}
+                        ⏱ {formatTime(elapsedSeconds)}
                     </Typography>
                 </Box>
 

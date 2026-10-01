@@ -1,8 +1,9 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
+import { Box, Typography, Button, Paper, CircularProgress, Divider } from '@mui/material';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../config/firebase';
-import { Box, Typography, Button, Paper, CircularProgress, Divider } from '@mui/material';
+import formatTime from '../utils/utils';
 
 interface WorkoutData {
     id: string;
@@ -13,6 +14,7 @@ interface WorkoutData {
     exercises: any[]; 
     sets: Record<string, { weight: string; reps: string; isDone: boolean }[]>;
     notes?: string;
+    duration?: number;
 };
 
 const PROGRAM_TYPE_NAMES: Record<string, string> = {
@@ -57,6 +59,9 @@ export default function WorkoutDetailsPage() {
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
                         {workout.createdAt?.toDate().toLocaleDateString('uk-UA', { day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit' })}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                        Тривалість тренування: {workout.duration ? formatTime(workout.duration) : 'Час не записано'}
                     </Typography>
                 </Box>
                 <Button variant="contained" size="small" onClick={() => navigate('/')}>

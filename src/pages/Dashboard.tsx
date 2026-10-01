@@ -1,10 +1,11 @@
 import { Box, Typography, Button, Paper, Avatar, CircularProgress, Chip } from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { type RootState } from '../store/store';
 import { db } from '../config/firebase';
-import { collection, query, where, orderBy, getDocs } from "firebase/firestore";
+import { collection, query, where, orderBy, getDocs, deleteDoc, doc } from "firebase/firestore";
 
 const PROGRAM_NAMES: Record<string, string> = {
     ppl: 'PPL (Push-Pull-Legs)',
@@ -63,7 +64,20 @@ export default function DashboardPage() {
         fetchHistory();
     }, [user]);
 
-    console.log(history);
+const handleDeleteWorkout = async (workoutId: string) => {
+        const isConfirmed = window.confirm('Ти впевнений, що хочеш видалити це тренування?');
+        if (!isConfirmed) return;
+
+        try {
+            await deleteDoc(doc(db, 'workouts', workoutId));
+            
+            setHistory(prev => prev.filter(workout => workout.id !== workoutId));
+            
+        } catch (error) {
+            console.error("Помилка видалення:", error);
+            alert('Не вдалося видалити тренування');
+        }
+    };
 
     return (
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, }}>
@@ -120,11 +134,23 @@ export default function DashboardPage() {
                                     {workout.createdAt?.toDate().toLocaleDateString('uk-UA', { day: 'numeric', month: 'long', year: 'numeric' })}
                                 </Typography>
                             </Box>
-                            <Chip
-                                label="Виконано" 
-                                size="small" 
-                                sx={{ bgcolor: '#12352a', color: 'primary.main', fontWeight: 'bold', borderRadius: 1 }} 
-                            />
+                            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                                <Chip
+                                    label="Виконано" 
+                                    size="small" 
+                                    sx={{ bgcolor: '#12352a', color: 'primary.main', fontWeight: 'bold', borderRadius: 1 }} 
+                                />
+                                <Button 
+                                    color="error" 
+                                    sx={{ minWidth: 'auto', p: 0.5 }}
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        handleDeleteWorkout(workout.id);
+                                    }}
+                                >
+                                    <DeleteIcon fontSize="small" />
+                                </Button>
+                            </Box>
                         </Box>
                         <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, alignItems: 'center' }}>
                             <Chip 
