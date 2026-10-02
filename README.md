@@ -1,75 +1,16 @@
-# React + TypeScript + Vite
+# MoveTrack | Workout Tracking Application
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern, mobile-first web application designed for convenient and systematic tracking of workout progress. MoveTrack allows users to log exercises, working weights, and sets in real-time during their gym sessions, making it an ideal tool for structured fitness programs.
 
-Currently, two official plugins are available:
+## ✨ Key Features
+* **🏋️ Workout Diary:** Intuitive session creation with accurate logging of exercises, sets, and working weights.
+* **📝 Drafts & History:** Automatically save the current state of an unfinished workout (drafts) and easily access a detailed history of past sessions to analyze progress.
+* **🔐 Authentication & Security:** Secure individual user accounts and session persistence using Firebase Authentication.
+* **☁️ Cloud Synchronization:** Real-time data saving to Cloud Firestore, ensuring seamless access to workout statistics from any device.
+* **📱 Mobile-First Design:** Fully responsive interface optimized specifically for smartphone use "on the go" in the gym or during home workouts.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
-
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
-```
-
-You can also install [eslint-plugin-react-x](https://npmx.dev/package/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://npmx.dev/package/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
-```
+## 🛠️ Tech Stack
+* **Frontend:** React, TypeScript
+* **State Management:** Redux Toolkit
+* **UI & Styling:** Material-UI (MUI) — styled utilizing the `sx` prop for strict mobile-first component architecture.
+* **Backend & Database:** Firebase Authentication, Cloud Firestore
