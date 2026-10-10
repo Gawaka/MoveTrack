@@ -9,13 +9,13 @@ import RequireAuth from './components/routing/RequireAuth';
 import type { User } from './types/types';
 import RegisterPage from './pages/RegisterPage';
 import LoginPage from './pages/LoginPage';
+import ProfilePage from './pages/ProfilePage';
 import DashboardPage from './pages/Dashboard';
 import NewWorkoutPage from './pages/NewWorkoutPage';
 import ExercisesPage from './pages/ExercisesPage';
 import ActiveWorkoutPage from './pages/ActiveWorkoutPage';
 import WorkoutDetailsPage from './pages/WorkoutDetailsPage';
 import './App.css';
-import ProfilePage from './pages/ProfilePage';
 
 
 
@@ -45,7 +45,7 @@ function App() {
   }, [dispatch]);
 
   return (
-<Routes>
+    <Routes>
       <Route path='/login' element={<LoginPage/>}/>
       <Route path='/register' element={<RegisterPage/>}/>
       <Route element={<RequireAuth/>}>
@@ -60,6 +60,6 @@ function App() {
       </Route>
     </Routes>
   );
-}
+};
 
 export default App;

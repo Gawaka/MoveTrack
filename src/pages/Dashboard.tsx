@@ -43,17 +43,14 @@ export default function DashboardPage() {
                 const q = query(
                     collection(db, 'workouts'),
                     where('userId', '==', user.uid),
-                    orderBy('createdAt', 'desc'),
+                    orderBy('createdAt', 'desc')
                 );
                 const querySnapshot = await getDocs(q);
-
                 const historyData = querySnapshot.docs.map((doc) => ({
                     id: doc.id,
                     ...doc.data()
                 }));
-                
                 setHistory(historyData);
-                
             } catch (error) {
                 console.error("Помилка завантаження історії:", error);
             } finally {
@@ -64,7 +61,7 @@ export default function DashboardPage() {
         fetchHistory();
     }, [user]);
 
-const handleDeleteWorkout = async (workoutId: string) => {
+    const handleDeleteWorkout = async (workoutId: string) => {
         const isConfirmed = window.confirm('Ти впевнений, що хочеш видалити це тренування?');
         if (!isConfirmed) return;
 
@@ -91,7 +88,14 @@ const handleDeleteWorkout = async (workoutId: string) => {
                         Готовий до тренування?
                     </Typography>
                 </Box>
-                <Avatar sx={{ bgcolor: '#20352d', color: 'primary.main', fontWeight: 'bold' }}>
+                
+                <Avatar
+                    onClick={()=> navigate('/profile')}
+                    sx={{ bgcolor: '#20352d',
+                            color: 'primary.main', 
+                            fontWeight: 'bold' 
+                        }} 
+                        >
                     {userName.charAt(0).toUpperCase()}
                 </Avatar>
             </Box>

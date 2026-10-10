@@ -1,4 +1,4 @@
-import { AppBar, Toolbar, Typography, Box, Button} from '@mui/material';
+import { AppBar, Toolbar, Typography, Box} from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { signOut } from 'firebase/auth';
 import { useDispatch } from 'react-redux';
@@ -38,12 +38,6 @@ export default function Header() {
                         />
                         MoveTrack
                 </Typography>
-                <Button 
-                    variant="text" 
-                    onClick={() => handleLogout()}
-                >
-                    Вихід
-                </Button>
                 </Toolbar>
             </AppBar>
         </>
