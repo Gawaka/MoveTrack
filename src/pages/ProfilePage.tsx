@@ -24,7 +24,7 @@ export default function ProfilePage() {
         const fetchStats = async ()=> {
             if (!user?.uid) return;
 
-            setLoadingStats(true);
+            setLoadingStats(true)
 
             try{
                 const q = query(
