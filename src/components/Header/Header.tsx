@@ -1,25 +1,7 @@
 import { AppBar, Toolbar, Typography, Box} from '@mui/material';
-import { useNavigate } from 'react-router-dom';
-import { signOut } from 'firebase/auth';
-import { useDispatch } from 'react-redux';
-import { auth } from '../../config/firebase';
-import { clearUser } from '../../store/authSlice';
 import logo from '../../assets/logo.svg';
 
 export default function Header() {
-    const navigate = useNavigate();
-    const dispatch = useDispatch();
-
-    const handleLogout = async ()=> {
-        try{
-            await signOut(auth);
-            dispatch(clearUser());
-            navigate('/login', {replace: true})
-        } catch(error) {
-            console.error('Помилка виходу:', error);
-        }
-    } ;
-
 
     return(
         <>

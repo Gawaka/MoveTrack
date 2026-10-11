@@ -24,8 +24,6 @@ export default function ProfilePage() {
     const user = useSelector((state: RootState) => state.auth.user);
     const userName = user?.displayName || user?.email?.split('@')[0] || 'User';
 
-    
-
     useEffect(()=> {
         const fetchStats = async ()=> {
             if (!user?.uid) return;
