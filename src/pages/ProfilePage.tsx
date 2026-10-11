@@ -1,15 +1,19 @@
 import { useEffect, useState, useMemo } from 'react';
-import { Box, Typography, Avatar, Button, Paper, CircularProgress } from '@mui/material';
-import { collection, query, where, orderBy, getDocs, deleteDoc, doc } from "firebase/firestore";
+import { Box, Typography, Avatar, Grid, Button, Paper, CircularProgress } from '@mui/material';
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
+import RepeatIcon from '@mui/icons-material/Repeat';
+import LayersIcon from '@mui/icons-material/Layers';
+import  formatTime from '../utils/utils'
+import { collection, query, where, orderBy, getDocs } from "firebase/firestore";
 import { signOut } from 'firebase/auth';
-import { data, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { clearUser } from '../store/authSlice';
 import { type RootState } from '../store/store';
 import { auth } from '../config/firebase';
 import { db } from '../config/firebase';
-
 
 export default function ProfilePage() {
     const [workoutCount, setWorkoutCount] = useState(0);
@@ -20,11 +24,13 @@ export default function ProfilePage() {
     const user = useSelector((state: RootState) => state.auth.user);
     const userName = user?.displayName || user?.email?.split('@')[0] || 'User';
 
+    
+
     useEffect(()=> {
         const fetchStats = async ()=> {
             if (!user?.uid) return;
 
-            setLoadingStats(true)
+            setLoadingStats(true);
 
             try{
                 const q = query(
@@ -49,8 +55,11 @@ export default function ProfilePage() {
     }, [user?.uid]);
 
     const stats = useMemo(()=> {
+        
         let totalDurationSeconds = 0;
         let totalCompletedSets = 0;
+        let totalTonnage = 0;
+        let totalReps = 0;
 
         workouts.forEach((workout)=> {
             if(workout.duration) {
@@ -58,17 +67,24 @@ export default function ProfilePage() {
             };
 
             if(workout.sets) {
-                totalCompletedSets += Object.values(workout.sets).flat().filter((set: any)=> set.isDone === true).length
-            }
+                const completedSets = Object.values(workout.sets).flat().filter((set: any)=> set.isDone === true);
+                totalCompletedSets += completedSets.length;
+                totalReps += completedSets.reduce((sum: number, set: any)=> {
+                    return sum + Number(set.reps || 0);
+                }, 0);
+                totalTonnage += completedSets.reduce((sum: number, set: any)=> {
+                    return sum + (Number(set.weight));
+                }, 0);
+            };
+
         });
         return {
             totalDurationSeconds,
-            totalCompletedSets
+            totalCompletedSets,
+            totalTonnage,
+            totalReps
         };
     }, [workouts]);
-
-    const duration = stats.totalDurationSeconds;
-    const completedSets = stats.totalCompletedSets;
 
     const handleLogout = async ()=> {
         try{
@@ -135,22 +151,56 @@ export default function ProfilePage() {
                     </Box>
                 }
                 {loadingStats ? <CircularProgress/> :
-                    <Box sx={{ 
-                            display: 'flex', 
-                            flexWrap: 'wrap', 
-                            justifyContent: 'space-between', 
-                            textAlign: 'center',
-                            gap: 2
-                        }}>
-                        <Box>
-                            <Typography variant='h5' sx={{ fontWeight: 'bold' }}>{duration}</Typography>
-                            <Typography sx={{fontSize: 12}}>Загальний час тренувань</Typography>
-                        </Box>
-                        <Box>
-                            <Typography variant='h5' sx={{ fontWeight: 'bold' }}>{completedSets}</Typography>
-                            <Typography sx={{fontSize: 12}}>Загальний час тренувань</Typography>
-                        </Box>
-                    </Box>
+                    <Grid container spacing={2}>
+                        {/* Time */}
+                        <Grid size={{ xs: 6 }}>
+                            <Box sx={{ p: 2, bgcolor: 'rgba(255, 255, 255, 0.03)', borderRadius: 2, textAlign: 'center', height: '100%' }}>
+                                <AccessTimeIcon sx={{ color: 'primary.main', mb: 0.5 }} />
+                                <Typography variant='h5' sx={{ fontWeight: 'bold' }}>
+                                    {formatTime(stats.totalDurationSeconds)}
+                                </Typography>
+                                <Typography variant='caption' color='text.secondary' sx={{ display: 'block', lineHeight: 1.2 }}>
+                                    Загальний час
+                                </Typography>
+                            </Box>
+                        </Grid>
+                        {/* Sets */}
+                        <Grid size={{ xs: 6 }}>
+                            <Box sx={{ p: 2, bgcolor: 'rgba(255, 255, 255, 0.03)', borderRadius: 2, textAlign: 'center', height: '100%' }}>
+                                <LayersIcon sx={{ color: 'primary.main', mb: 0.5 }} />
+                                <Typography variant='h5' sx={{ fontWeight: 'bold' }}>
+                                    {stats.totalCompletedSets}
+                                </Typography>
+                                <Typography variant='caption' color='text.secondary' sx={{ display: 'block', lineHeight: 1.2 }}>
+                                    Успішні підходи
+                                </Typography>
+                            </Box>
+                        </Grid>
+                        {/* Reps */}
+                        <Grid size={{ xs: 6 }}>
+                            <Box sx={{ p: 2, bgcolor: 'rgba(255, 255, 255, 0.03)', borderRadius: 2, textAlign: 'center', height: '100%' }}>
+                                <RepeatIcon sx={{ color: 'primary.main', mb: 0.5 }} />
+                                <Typography variant='h5' sx={{ fontWeight: 'bold' }}>
+                                    {stats.totalReps}
+                                </Typography>
+                                <Typography variant='caption' color='text.secondary' sx={{ display: 'block', lineHeight: 1.2 }}>
+                                    Всі повторення
+                                </Typography>
+                            </Box>
+                        </Grid>
+                        {/* Tonage */}
+                        <Grid size={{ xs: 6 }}>
+                            <Box sx={{ p: 2, bgcolor: 'rgba(255, 255, 255, 0.03)', borderRadius: 2, textAlign: 'center', height: '100%' }}>
+                                <FitnessCenterIcon sx={{ color: 'primary.main', mb: 0.5 }} />
+                                <Typography variant='h5' sx={{ fontWeight: 'bold' }}>
+                                    {stats.totalTonnage} <Typography component="span" variant="body2" color="text.secondary">кг</Typography>
+                                </Typography>
+                                <Typography variant='caption' color='text.secondary' sx={{ display: 'block', lineHeight: 1.2 }}>
+                                    Піднята вага
+                                </Typography>
+                            </Box>
+                        </Grid>
+                    </Grid>
                 }
             </Paper>
             {/* Exit btn */}
